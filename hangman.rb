@@ -1,14 +1,15 @@
 class Hangman
 
   def initialize
-    # this runs at the beginning and call lost of other methods
     @answer = pick_answer
+    @no_of_guesses = 0
+    @blanks_array = answer_to_blanks
+
     start
     puts @answer #temporary!!
     art
-    @blanks = answer_to_blanks
-    @blanks_array = []
     get_guess
+
   end
 
   def start
@@ -17,19 +18,20 @@ class Hangman
 
   def pick_answer
     # randomly pick the answer from the library
-    library = ["cat", "dog", "mouse"]
+    library = ["cat", "dog", "mouse", "letter", "elephant", "bottomless", "house", "polecat", "coffee", "apple"]
     @answer = library.sample
 
     return @answer
   end
 
   def answer_to_blanks
-    #convert the answer to some number of blanks
+    # convert the answer to the number of blanks of the chosen word
     num_of_blanks = @answer.length
-    @blanks = "_ " * num_of_blanks
+    @blanks = "_" * num_of_blanks
     puts @blanks
-    @blanks_array = @blanks.split(//)
-    return @blanks
+    @blanks_array = @blanks.split(//) # turns the string into an array of strings for each character
+
+    return @blanks_array
 
   end
 
@@ -37,6 +39,7 @@ class Hangman
     # gets user input
     puts "\nGuess a letter: "
     @guess = gets.chomp
+
     if @guess == "quit"
       exit
     end
@@ -45,16 +48,46 @@ class Hangman
 
   def check_answer
     # compares the guess to the answer
-    answer_array = @answer.split(//)   # turn the element of the array into the guess
-    answer_array.each do |letter|
-      if @guess == letter
-        index = answer_array.index(@guess)
-        @blanks_array[index] = letter.upcase
-        print @blanks_array.join
-      end
-    end #but it doesn't keep the previous letters that are correct
-    get_guess
+    answer_array = @answer.split(//)   # turns the answer chosen under pick_answer into an array of strings
+    answer_array.each_index do |index|
+      if @guess == answer_array[index]
 
+        @blanks_array[index] = @guess.upcase
+      end
+    end
+
+    if answer_array.include?(@guess) == false
+        @no_of_guesses += 1
+    end
+
+    win?
+    lose?
+  end
+
+  def lose?
+    if @no_of_guesses <= 7
+      print @blanks_array.join(" ")
+      get_guess
+    else
+      lose
+    end
+  end
+
+  def win?
+    if @blanks_array.join.upcase == @answer.upcase
+      puts "Answer: #{@answer}"
+      win
+    end
+  end
+
+  def win
+    puts "You win!!"
+    exit
+  end
+
+  def lose
+    puts "You lose!"
+    exit
   end
 #--------------------------------------------
 # Art
@@ -73,16 +106,8 @@ class Hangman
     puts "word: #{@blanks}"
 end
 
-#---------------------------------------------
-# End game
 
-# def win
-#   #what happens when you win!!!
-# end
-#
-# def lose
-#   #what happens when you lose!!
-# end
+
 
 end
 Hangman.new
