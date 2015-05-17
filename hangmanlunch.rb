@@ -17,7 +17,6 @@ class Hangman
     puts "Answer: " + @answer_array.join
 
     start
-
   end
 
   # create paper
@@ -45,7 +44,6 @@ class Hangman
 
     #starts asking for guesses
     play
-
   end
 
   def play
@@ -55,7 +53,6 @@ class Hangman
       get_guess
       check_guess(@letter_guess)
     end
-
   end
 
 
@@ -73,9 +70,7 @@ class Hangman
     # controls for unexpected user input
     elsif acceptable_range.include?(@letter_guess) == false
       puts "We're working with letters here. Come on...".red.bold
-
     end
-
     return @letter_guess
   end
 
@@ -170,13 +165,11 @@ class Hangman
       @paper[5] = @misses_array[7]
 
       draw_paper
-
       lose
     end
 
     @paper[8] = @incorrect_guesses
     draw_paper
-
   end
 
   def lose
@@ -208,11 +201,8 @@ class Hangman
     @guess_length.times do |_|
       blank_guesses.push("_")
     end
-
     return blank_guesses
-
   end
-
 end
 
 Hangman.new
