@@ -187,6 +187,11 @@ class Hangman
         guess_letter.split("").each_with_index do |letter, index|
           @array_of_slots[index] = letter + " "
         end
+        # multi-letter guesses that are incorrect count as a mistake
+      else
+        @wrong_letters.push(guess_letter)
+        @errors += 1
+        puts "\nThat is not the correct word."
       end
     # guess_letter is just a letter
     else
@@ -212,7 +217,7 @@ class Hangman
           @errors += 1
         else
           # could move this to a better locaton for UI
-          puts "\nYou already made that guess."
+          puts "\nYou already made that incorrect guess."
         end
       end
     end
