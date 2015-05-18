@@ -1,5 +1,4 @@
-# Amira Hailemariam & Alice Rhomieux 
-
+# Pair: Alice Rhomieux
 require 'colorize'
 
 class Hangman
@@ -8,7 +7,7 @@ class Hangman
     @wrong_letters = []
     @errors = 0
 
-    # initialize array_of_slots with underscores
+    # initializes array_of_slots with underscores
     @num_of_slots = @game_word.length
     @array_of_slots = []
     @num_of_slots.times do
@@ -28,7 +27,7 @@ class Hangman
             [
               "|     _________",
               "|     |/      |",
-              "|     |      " + "(_)".colorize(:red),
+              "|     |      " + "(_)".red,
               "|     |      ",
               "|     |       ",
               "|     |      ",
@@ -40,7 +39,7 @@ class Hangman
               "|     _________",
               "|     |/      |",
               "|     |      (_)",
-              "|     |       " + "|".colorize(:light_yellow),
+              "|     |       " + "|".red,
               "|     |       ",
               "|     |      ",
               "|     |",
@@ -51,7 +50,7 @@ class Hangman
               "|     |/      |",
               "|     |      (_)",
               "|     |       |",
-              "|     |       " + "|".colorize(:green),
+              "|     |       " + "|".red,
               "|     |      ",
               "|     |",
               "| ____|___"
@@ -60,7 +59,7 @@ class Hangman
               "|     _________",
               "|     |/      |",
               "|     |      (_)",
-              "|     |      "+ "\\".colorize(:cyan) + "|",
+              "|     |      "+ "\\".red + "|",
               "|     |       |",
               "|     |      ",
               "|     |",
@@ -70,7 +69,7 @@ class Hangman
               "|     _________",
               "|     |/      |",
               "|     |      (_)",
-              "|     |      \\|" + "/".colorize(:blue),
+              "|     |      \\|" + "/".red,
               "|     |       |",
               "|     |      ",
               "|     |",
@@ -82,7 +81,7 @@ class Hangman
               "|     |      (_)",
               "|     |      \\|/ ",
               "|     |       | ",
-              "|     |      " + "/ ".colorize(:magenta),
+              "|     |      " + "/ ".red,
               "|     |",
               "| ____|___"
             ],
@@ -92,7 +91,7 @@ class Hangman
               "|     |      (_)",
               "|     |      \\|/",
               "|     |       |",
-              "|     |      / " + "\\ ".colorize(:light_black),
+              "|     |      / " + "\\ ".red,
               "|     |",
               "| ____|___"
 ]]
@@ -144,31 +143,16 @@ class Hangman
   end
 
   def validate_input(input)
-
-# This also works, but we like the next solution better
-    # valid = true
-    # input.split.each do |letter|
-    #     if !("a".."z").include?(letter)
-    #       valid = false
-    #     end
-    #   end
-
-    # if valid
-    #   return input
-    # else
-    #   puts "Invalid entry. Please enter only letters (no punctuation)."
-    #   get_guess
-    # end
-#
-
     valid = false
 
     while !valid
       input.split("").each do |letter|
         # enter and space do not count as mistakes
+        # correctly identifies 1st invalid input
+        # submits 2nd as a wrong guess
         if letter == " " || !("a".."z").include?(letter)
-          puts "Error:".colorize(:red) + " Please only use letters. No numbers, punctuation, or spaces."
-          get_guess
+          puts "\nError:".red + " Please only use letters. No numbers, punctuation, or spaces."
+          input = gets.chomp.strip.downcase
         end
       end
 
@@ -214,7 +198,8 @@ class Hangman
         # increases errors which will draw new body part
           @errors += 1
         else
-          # could move this to a better locaton for UI
+          # would be cool if last added body part wasn't still red
+          # to show that the guess had no effect
           puts "\nYou already made that guess."
         end
       end
