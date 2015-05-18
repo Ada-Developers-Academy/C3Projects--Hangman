@@ -10,6 +10,7 @@ class Hangman
     # count of wrong answers
     @wrong_count = 0
     @letter_array = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"]
+    @letters_guessed = []
 
     start
     draw_board
@@ -135,10 +136,16 @@ class Hangman
         exit
       end
 
-      # Error if 0 or > 1 character inputted
-      while input.length != 1
-        puts "You're better than this. Please enter ONE letter, thanks."
+      # Error if invalid input given.
+      until input.length == 1 && @letter_array.include?(input.upcase)
+        puts "You're better than this. Please enter ONE LETTER, thanks."
         input = gets.chomp.upcase
+      end
+
+      # display guesses thus far
+      if input.length == 1 && @letter_array.include?(input.upcase)
+        @letters_guessed.push(input)
+        puts "Letters Guessed: #{@letters_guessed.join(" ")}"
       end
 
       # split answer word into array consisting of each letter.
