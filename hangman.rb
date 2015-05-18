@@ -110,7 +110,7 @@ class Hangman
 
   def start
     puts "Welcome to Hangman."
-    puts "Please type your letter guess. No numbers, punctuation, or spaces."
+    puts "Please type your whole word or letter guess. No numbers, punctuation, or spaces."
     # uncomment the following line for aid in development
     puts "Answer: #{@game_word}"
 
@@ -159,10 +159,9 @@ class Hangman
     if valid
       return input
     else
-      puts "Invalid entry. Please enter only letters (no punctuation)."
+      puts "Error:".colorize(:red) + " Please only use letters. No numbers, punctuation, or spaces."
       get_guess
     end
-# 
 
     # valid = false
 
