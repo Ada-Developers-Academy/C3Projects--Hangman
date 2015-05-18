@@ -12,6 +12,7 @@ class Hangman
     # initialize array_of_slots with underscores
     @num_of_slots = @game_word.length
     @array_of_slots = []
+
     @num_of_slots.times do 
       @array_of_slots.push("_ ")
     end
@@ -138,6 +139,7 @@ class Hangman
 
   def get_guess
     input = gets.chomp.strip.downcase
+    # allow user to exit game
     if input == "quit" || input == "exit"
       exit
     else
@@ -147,9 +149,9 @@ class Hangman
   end
 
   def validate_input(input)
-
-# This also works, but we like the next solution better
     valid = true
+
+    # change valid to false if input string includes anything but a letter
     input.split("").each do |letter|
         if !(("a".."z").include?(letter))
           valid = false
@@ -162,21 +164,6 @@ class Hangman
       puts "Error:".colorize(:red) + " Please only use letters. No numbers, punctuation, or spaces."
       get_guess
     end
-
-    # valid = false
-
-    # while !valid
-    #   input.split("").each do |letter|
-    #     # enter and space do not count as mistakes
-    #     if letter == " " || !("a".."z").include?(letter)
-    #       puts "Error:".colorize(:red) + " Please only use letters. No numbers, punctuation, or spaces."
-    #       get_guess
-    #     end
-    #   end
-
-    #   valid = true
-    #   return input
-    # end
   end
 
   def check_guess(guess_letter)
@@ -216,7 +203,6 @@ class Hangman
         # increases errors which will draw new body part
           @errors += 1
         else
-          # could move this to a better locaton for UI
           puts "\nYou already made that incorrect guess."
         end
       end
@@ -239,12 +225,12 @@ class Hangman
 
   def win
     @now_playing = false
-    puts "Congrats, you won."
+    puts "\nCongrats, you won."
   end
 
   def lose
     @now_playing = false
-    puts "You FAILED. And got hanged."
+    puts "\nYou FAILED. And got hanged."
   end
 
 
