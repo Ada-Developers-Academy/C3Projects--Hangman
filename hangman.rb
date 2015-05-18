@@ -1,3 +1,6 @@
+# Hangman
+# Pair project w/ Amira Hailemariam
+
 require 'colorize'
 
 class Hangman
@@ -13,6 +16,7 @@ class Hangman
       @array_of_slots.push("_ ")
     end
 
+    # array of arrays, each is a mistake level drawing
     @drawings = [[
               "|     _________",
               "|     |/      |",
@@ -107,6 +111,7 @@ class Hangman
   def start
     puts "Welcome to Hangman."
     puts "Please type your letter guess. No numbers, punctuation, or spaces."
+    # uncomment the following line for aid in development
     puts "Answer: #{@game_word}"
 
     @now_playing = true
@@ -144,35 +149,35 @@ class Hangman
   def validate_input(input)
 
 # This also works, but we like the next solution better
-    # valid = true
-    # input.split.each do |letter|
-    #     if !("a".."z").include?(letter)
-    #       valid = false
-    #     end
-    #   end
-
-    # if valid
-    #   return input
-    # else
-    #   puts "Invalid entry. Please enter only letters (no punctuation)."
-    #   get_guess
-    # end
-# 
-
-    valid = false
-
-    while !valid
-      input.split("").each do |letter|
-        # enter and space do not count as mistakes
-        if letter == " " || !("a".."z").include?(letter)
-          puts "Error:".colorize(:red) + " Please only use letters. No numbers, punctuation, or spaces."
-          get_guess
+    valid = true
+    input.split("").each do |letter|
+        if !(("a".."z").include?(letter))
+          valid = false
         end
       end
 
-      valid = true
+    if valid
       return input
+    else
+      puts "Invalid entry. Please enter only letters (no punctuation)."
+      get_guess
     end
+# 
+
+    # valid = false
+
+    # while !valid
+    #   input.split("").each do |letter|
+    #     # enter and space do not count as mistakes
+    #     if letter == " " || !("a".."z").include?(letter)
+    #       puts "Error:".colorize(:red) + " Please only use letters. No numbers, punctuation, or spaces."
+    #       get_guess
+    #     end
+    #   end
+
+    #   valid = true
+    #   return input
+    # end
   end
 
   def check_guess(guess_letter)
@@ -183,12 +188,8 @@ class Hangman
         guess_letter.split("").each_with_index do |letter, index|
           @array_of_slots[index] = letter + " "
         end
-        # @array_of_slots = guess_letter.split("")
-        # @array_of_slots.each do |letter|
-        #   letter += " "
-        # end
       end
-    # guess_letter is just a letter or 
+    # guess_letter is just a letter
     else
       # check if guess_letter is in game_word
       if @game_word.include?(guess_letter)
@@ -196,7 +197,6 @@ class Hangman
         if @array_of_slots.join.include?(guess_letter)
           puts "\nYou already figured out that letter."
         end
-
         # if letter not already guessed and is in game word, fill the corresponding blank with letter
         (0...@num_of_slots).each do |index|
           if @game_word[index] == guess_letter
