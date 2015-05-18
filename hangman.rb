@@ -116,7 +116,7 @@ class Hangman
 
     draw_slots
     draw_wrong_guesses
-
+    puts " "
     play
   end
 
@@ -162,33 +162,34 @@ class Hangman
   end
 
   def check_guess(guess_letter)
-    # check word input
+    # is guess_letter one lettr or a word/phrase
     if guess_letter.length > 1
+      # if a word/phrase
+      # check if it's the answer
       if guess_letter == @game_word
-        # fill in array of slots with letters of guess word
+        # if it is, fill in array of slots with letters of the answer
         guess_letter.split("").each_with_index do |letter, index|
           @array_of_slots[index] = letter + " "
         end
-        # @array_of_slots = guess_letter.split("")
-        # @array_of_slots.each do |letter|
-        #   letter += " "
-        # end
       end
-    # guess_letter is just a letter or
+
+    # guess_letter is just a letter
     else
-      # check if guess_letter is in game_word
+      # check if the gussed letter is in game_word
       if @game_word.include?(guess_letter)
         # if letter was already figured out, return message
         if @array_of_slots.join.include?(guess_letter)
           puts "\nYou already figured out that letter."
         end
 
-        # if letter not already guessed and is in game word, fill the corresponding blank with letter
+        # if letter not already guessed and is in game word,
+        # fill the corresponding blank with letter
         (0...@num_of_slots).each do |index|
           if @game_word[index] == guess_letter
             @array_of_slots[index] = guess_letter + " "
           end
         end
+
       # if guess letter is wrong
       else
         # only if wrong letter was not already guessed
@@ -253,6 +254,7 @@ class Hangman
     draw_tree(@errors)
     draw_slots
     draw_wrong_guesses
+    puts " "
   end
 
 end
