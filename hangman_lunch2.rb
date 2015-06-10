@@ -27,9 +27,7 @@ class Hangman
 # Create answer
   def populate_answer
     answer_array = ["PICARD", "GUINAN", "WORF", "WARP", "ENGAGE", "ENTERPRISE", "DATA", "ROMULAN", "VULCAN", "BETAZOID", "KLINGON", "FEDERATION", "REPLICATOR", "DARMOK", "HOLODECK", "PHASER", "TRICORDER", "BEAM", "TRANSPORTER"]
-
-    answer = answer_array.shuffle.pop
-    return answer
+    return answer_array.sample
   end
 
 # ------------------
@@ -88,10 +86,6 @@ class Hangman
                           \\----._________.----/
                           /  /    `-_-'
 
-
-
-
-
       """.magenta
     elsif @wrong_count == 5
       puts """
@@ -100,31 +94,27 @@ class Hangman
                           \\----._________.----/
                                   `-_-'
 
-
-
-
-
       """.red
     else
       lose
     end
 
+    # Show modified answer line.
+    puts @answer_line.join
   end
 
 # Creates blank answer line
   def answer_line
-      @answer_line = []
-      (@answer.length).times do |ans|
-      @answer_line.push(" _ ")
-    end
-    return @answer_line
+      @answer_line = Array.new(@answer.length, ' _ ')
   end
-
 
 # ------------------
 
 # Enter and check answer
   def play
+    # split answer word into array consisting of each letter.
+    letters = @answer.split("")
+
     # Check until answer is complete (guesses have revealed all letters)
     until @answer_line.join == @answer
       # Get a guess
@@ -148,28 +138,20 @@ class Hangman
         puts "Letters Guessed: #{@letters_guessed.join(" ")}"
       end
 
-      # split answer word into array consisting of each letter.
-      letters = @answer.split("")
-
       # Check input against answer
       # If correct, replace _ with input letter
       if letters.include?(input)
-        letters.each do |letter|
-          if letters.include?(input)
-            position = letters.index(input)
-            letters[position] = "@"
-            @answer_line[position] = input
+        letters.each_index do | index |
+          if letters[index] == (input)
+            letters[index] = "@"
+            @answer_line[index] = input
           end
         end
-      # If incorrect, increment count of wrong answers.
       else
         @wrong_count += 1
       end
 
       draw_board
-
-      # Show modified answer line.
-      puts @answer_line.join
     end
 
     win
