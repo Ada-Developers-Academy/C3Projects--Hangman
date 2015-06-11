@@ -95,11 +95,13 @@ class Hangman
     @wrong_letters = []
     @errors = 0
     
-    # initialize array_of_slots with underscores
+    make_array_of_slots
+    start
+  end
+
+  def make_array_of_slots
     @num_of_slots = @game_word.length
     @array_of_slots = Array.new(@num_of_slots, "_ ")
-
-    start
   end
 
   def pick_word
