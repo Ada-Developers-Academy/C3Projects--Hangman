@@ -140,13 +140,10 @@ class Hangman
 
   def get_guess
     input = gets.chomp.strip.downcase
-    # allow user to exit game
-    if input == "quit" || input == "exit"
-      exit
-    else
-      guess = validate_input(input)
-    end
-    return guess
+
+    exit if input == "quit" || input == "exit"
+
+    validate_input(input)
   end
 
   def validate_input(input)
