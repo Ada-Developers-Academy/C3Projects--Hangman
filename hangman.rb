@@ -150,21 +150,12 @@ class Hangman
   end
 
   def validate_input(input)
-    valid = true
+    valid = input.chars.find { |letter| !("a".."z").include?(letter) } ? false : true
 
-    # change valid to false if input string includes anything but a letter
-    input.split("").each do |letter|
-        if !(("a".."z").include?(letter))
-          valid = false
-        end
-      end
-
-    if valid
-      return input
-    else
-      puts "Error:".colorize(:red) + " Please only use letters. No numbers, punctuation, or spaces."
-      get_guess
-    end
+    return input if valid
+  
+    puts "Error:".colorize(:red) + " Please only use letters. No numbers, punctuation, or spaces."
+    get_guess
   end
 
   def check_guess(guess_letter)
