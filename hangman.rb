@@ -2,11 +2,19 @@ require "Colorize"
 
 class Hangman
 
-  def initialize
-    # List of possible game words. They are randomly selected during initialize.
-    @word_list =  ["w h a l e", "f l a g", "d o g", "f o r e s t",
-    "b r a v e", "r o s e", "g i f t", "s t a y", "a x", "d o l p h i n"]
+  # List of possible game words. They are randomly selected during initialize.
+  WORD_LIST = ["w h a l e", "f l a g", "d o g", "f o r e s t",
+  "b r a v e", "r o s e", "g i f t", "s t a y", "a x", "d o l p h i n"]
 
+  def initialize
+    ascii
+    start
+    answer
+    puts "Word: ".colorize(:light_blue) + blank
+    play
+  end
+
+  def ascii
     # ASCII representations of the hangman graphics
     @hanger_start   = """
     |     _________
@@ -96,10 +104,6 @@ class Hangman
     # This creates an array of possible ASCII outcomes as the user makes mistakes or wins
     @hanger_list = [@hanger_head, @hanger_body, @hanger_arm1, @hanger_arm2, @hanger_leg1, @hanger_leg2, @winner]
 
-    start
-    answer
-    puts "Word: ".colorize(:light_blue) + blank
-    play
   end
 
   # Prompts the user to begin a new game
@@ -117,9 +121,7 @@ class Hangman
 
   # Randomly generates answer word
   def answer
-    @random_word = @word_list[rand(0...@word_list.length)]
-    #puts "#{@random_word}".colorize(:black)
-    return @random_word
+    @random_word = WORD_LIST.sample
   end
 
   def blank
@@ -127,11 +129,7 @@ class Hangman
     @answer_array = @random_word.split(" ")
     # Creates a "blank array" of underscores
     blank_count = @answer_array.length
-    @blank_array = []
-    underscore = "_ "
-      while @blank_array.length != blank_count
-        @blank_array.push(underscore)
-      end
+    @blank_array = Array.new(blank_count, "_ ")
     # Creates a string of underscores and future correct guesses
     @blank_array.join
   end
@@ -153,9 +151,9 @@ class Hangman
         exit
       end
     # Detects a correct answer
-      (0...@answer_array.length).each do |index|
-        if  @input == @answer_array[index]
-            @blank_array[index] = @input + " "
+      @answer_array.each_index do |letter|
+        if  @input == @answer_array[letter]
+            @blank_array[letter] = @input + " "
             puts "Good for you!".colorize(:light_blue)
             puts  @blank_array.join
             correct_guess = true
