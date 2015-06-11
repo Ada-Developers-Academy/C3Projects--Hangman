@@ -4,21 +4,10 @@
 require 'colorize'
 
 class Hangman
-  def initialize
-    @game_word = pick_word
-    @wrong_letters = []
-    @errors = 0
-    
-    # initialize array_of_slots with underscores
-    @num_of_slots = @game_word.length
-    @array_of_slots = []
-
-    @num_of_slots.times do 
-      @array_of_slots.push("_ ")
-    end
 
     # array of arrays, each is a mistake level drawing
-    @drawings = [[
+  DRAWINGS = [
+            [
               "|     _________",
               "|     |/      |",
               "|     |      ",
@@ -99,13 +88,26 @@ class Hangman
               "|     |",
               "| ____|___"
 ]]
+  WORD_LIST = %w{cat dog egg horse donkey elephant pig monkey iguana cow goat unigoat eggplant mouse dragon phoenix}
+
+  def initialize
+    @game_word = pick_word
+    @wrong_letters = []
+    @errors = 0
+    
+    # initialize array_of_slots with underscores
+    @num_of_slots = @game_word.length
+    @array_of_slots = []
+
+    @num_of_slots.times do 
+      @array_of_slots.push("_ ")
+    end
 
     start
   end
 
   def pick_word
-    word_list = %w{cat dog egg horse donkey elephant pig monkey iguana cow goat unigoat eggplant mouse dragon phoenix}
-    random_word = word_list.sample
+    random_word = WORD_LIST.sample
     return random_word
   end
 
@@ -217,7 +219,7 @@ class Hangman
     if @array_of_slots.join.delete(" ") == @game_word
       win
     else
-      if @errors >= @drawings.length - 1
+      if @errors >= DRAWINGS.length - 1
         lose
       end
     end
@@ -238,7 +240,7 @@ class Hangman
   # Visual Methods
   def draw_tree(error_level)
     puts "\n"
-    @drawings[error_level].each do |row|
+    DRAWINGS[error_level].each do |row|
       puts row
     end
   end
