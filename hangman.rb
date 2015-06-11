@@ -1,11 +1,9 @@
-
 require 'colorize'
 
 class Hangman
 
- 
-
   def initialize
+
     @user_guesses = []
     @wrong_count = 0
     @word = pick_word 
@@ -39,11 +37,13 @@ class Hangman
     word = word_options.sample.split(//)
     return word
   end
+
 #joins the ascii art and the underlines for the letters in the word.
   def ascii_art
-    @ascii[7] = @underlines.join
+    @ascii[7] = @underlines.join #adds the last part of the hangman art to the end of the ascii art.
     puts @ascii
   end
+
 #creates the correct amount of underlines for each letter in the word.
   def create_underlines
     underlines = ["| ____|___ word: "]
@@ -52,6 +52,7 @@ class Hangman
     end
     return underlines
   end
+
 #adds pieces to the ascii art man each time the user gets answers incorrectly. 
 #Does not penalize user for guessing the same letter  
   def add_to_man
@@ -64,14 +65,16 @@ class Hangman
       puts "You already guessed this letter"
     end
   end
+
 #replaces the underlines with correct letters.
   def replace_underlines
     @word.each_with_index do |letter, index|
       if @user_letter == letter
-        @underlines[index+1] = @user_letter.upcase + " "
+        @underlines[index + 1] = @user_letter.upcase + " "
       end
     end
   end
+
 #checks if user won
   def win_check 
     if @underlines.include?("_ ") == false
@@ -79,6 +82,7 @@ class Hangman
       abort("Yay!! You win")
     end
   end
+
 #checks if user ran out of guesses. 
   def lose_check 
     if @wrong_count >= 4
@@ -86,6 +90,7 @@ class Hangman
       abort("You Lose")
     end
   end
+
 #checks if user guess is correct. If incorrect, program adds a piece of the ascii art man.    
   def check_guess  
     if @word.include?(@user_letter) == true
@@ -98,6 +103,7 @@ class Hangman
     @user_guesses.push(@user_letter.upcase)
     @user_guesses.uniq!
   end
+
 #Makes sure user input is valid or if user wants to quit. 
   def get_guess
     @user_letter = "0"
@@ -109,12 +115,15 @@ class Hangman
       end
     end
   end
+
 #controls game flow.
   def play
     puts "welcome"
     while true
       ascii_art
-      puts "You've already guessed: #{@user_guesses.join(" ")}"
+      unless @user_guesses.nil?
+        puts "You've already guessed: #{@user_guesses.join(" ")}"
+      end
       get_guess
       check_guess
     end
