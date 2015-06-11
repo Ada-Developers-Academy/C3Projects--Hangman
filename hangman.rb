@@ -97,11 +97,7 @@ class Hangman
     
     # initialize array_of_slots with underscores
     @num_of_slots = @game_word.length
-    @array_of_slots = []
-
-    @num_of_slots.times do 
-      @array_of_slots.push("_ ")
-    end
+    @array_of_slots = Array.new(@num_of_slots, "_ ")
 
     start
   end
