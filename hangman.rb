@@ -96,6 +96,7 @@ class Hangman
     @errors = 0
     
     make_array_of_slots
+
     start
   end
 
@@ -237,25 +238,28 @@ class Hangman
   # ---------------------------------
   # Visual Methods
   def draw_tree(error_level)
-    puts "\n"
-    DRAWINGS[error_level].each do |row|
-      puts row
-    end
+    top_space
+    puts DRAWINGS[error_level].join("\n")
   end
 
   def draw_slots
-    slots = @array_of_slots.join
-    puts "\n#{ slots }"
+    top_space
+    puts @array_of_slots.join
   end
 
   def draw_wrong_guesses
-    puts "\nWrong guesses: " + @wrong_letters.join(" ")
+    top_space
+    puts "Wrong guesses: " + @wrong_letters.join(" ")
   end
 
   def update_board
     draw_tree(@errors)
     draw_slots
     draw_wrong_guesses
+  end
+
+  def top_space
+    puts "\n"
   end
 
 end
