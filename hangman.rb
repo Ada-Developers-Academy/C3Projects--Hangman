@@ -184,8 +184,10 @@ class Hangman
         end
 
       end
+
     end
   end
+
 end
 
 #Runs a new game of Hangman automatically
