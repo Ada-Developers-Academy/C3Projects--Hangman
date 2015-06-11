@@ -155,20 +155,50 @@ class Hangman
     get_guess
   end
 
+  def check_word_guess(guess)
+    if guess == @game_word
+      # fill in array of slots with letters of guess word
+      guess.chars.each_with_index do |letter, index|
+        @array_of_slots[index] = letter + " "
+      end
+      # multi-letter guesses that are incorrect count as a mistake
+    else
+      @wrong_letters.push(guess)
+      @errors += 1
+      puts "\nThat is not the correct word."
+    end
+  end
+
+  def check_letter_guess(guess)
+    if @game_word.include?(guess)
+        # if letter was already figured out, return message
+        if @array_of_slots.join.include?(guess)
+          puts "\nYou already figured out that letter."
+        end
+        # if letter not already guessed and is in game word, fill the corresponding blank with letter
+        (0...@num_of_slots).each do |index|
+          if @game_word[index] == guess
+            @array_of_slots[index] = guess + " "
+          end
+        end
+      # if guess letter is wrong
+      else
+        # only if wrong letter was not already guessed
+        if !@wrong_letters.include?(guess)
+        # adds to wrong letter list
+          @wrong_letters.push(guess)
+        # increases errors which will draw new body part
+          @errors += 1
+        else
+          puts "\nYou already made that incorrect guess."
+        end
+      end
+  end
+
   def check_guess(guess_letter)
     # check word input
     if guess_letter.length > 1
-      if guess_letter == @game_word
-        # fill in array of slots with letters of guess word
-        guess_letter.split("").each_with_index do |letter, index|
-          @array_of_slots[index] = letter + " "
-        end
-        # multi-letter guesses that are incorrect count as a mistake
-      else
-        @wrong_letters.push(guess_letter)
-        @errors += 1
-        puts "\nThat is not the correct word."
-      end
+      check_word_guess(guess_letter)
     # guess_letter is just a letter
     else
       # check if guess_letter is in game_word
