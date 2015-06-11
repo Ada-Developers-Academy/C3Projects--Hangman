@@ -93,7 +93,7 @@ class Hangman
 
 #checks if user guess is correct. If incorrect, program adds a piece of the ascii art man.    
   def check_guess  
-    if @word.include?(@user_letter) == true
+    if @word.include?(@user_letter)
       replace_underlines
       win_check
     else
