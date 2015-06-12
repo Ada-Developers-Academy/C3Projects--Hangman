@@ -1,45 +1,29 @@
 require 'colorize'
 
+ALPHABET = %w(a b c d e f g h i j k l m n o p q r s t u v w x y z)
+WORDS 	 = %w(method index bracket braces gem git terminal length 
+					 count push class hash comment colorize mastermind orange 
+					 online dragon seattle ada ruby sinatra)
+
 class Hangman
 	def initialize
-		@words = ["method", "index", "bracket", "braces", "gem", "git", "terminal", "length", 
-							"count", "push", "class", "hash", "comment", "colorize", "mastermind", "orange", 
-							"online", "dragon", "seattle", "rubric"]
-		@word = @words.sample
-		@blank_spaces = "_ -" * @word.length
-		@blank_array = @blank_spaces.split("-")
+		@word 					= WORDS.sample
+		@blank_spaces 	= "_ -" * @word.length
+		@blank_array 		= @blank_spaces.split("-")
 		@answer_letters = @word.split(//)
-		@wrong_answers = 0
-		@guess_array = []
-		@alphabet = %w(a b c d e f g h i j k l m n o p q r s t u v w x y z)
-		start
-	end
+		@wrong_answers 	= 0
+		@guess_array 		= []
 
-	def start
-		puts """
-		Let's play Hangman!!!
-		Can you guess our Ada class related term?
-
-		|     _________
-		|     |/      |
-		|     |      
-		|     |      
-		|     |      
-		|     |      
-		|     |
-		| ____|___ 
-
-		word: #{@blank_array.join}
-		"""
+		draw_hangman
 		get_guess
 	end
 
 # GET GUESSES ------------------------------------------------------------->
-	# Retrieve guess from user and allows them to exit the game by typing quit.
+	# Retrieve guess from user and allow them to exit the game by typing quit.
 	# Guesses are pushed to an array.
 	def get_guess
-		puts "Please type a letter to guess the word above."
 		puts "To exit the game, type 'quit'."
+		print "Please type a letter to guess the word above. "		
 		@guess = gets.chomp.downcase
 		@guess_array.push(@guess)
 		if @guess == "quit"
@@ -53,7 +37,7 @@ class Hangman
 	# Check to see if the guess is part of the answer, if so, fills in the guess
 	# If guess is not in the answer, hangman is drawn
 	def guess_in_answer
-		if @alphabet.include?(@guess)
+		if ALPHABET.include?(@guess)
 			if @answer_letters.include?(@guess)
 				(0...@answer_letters.length).each do |index|
 					if @answer_letters[index] == @guess
@@ -81,7 +65,24 @@ class Hangman
 # DRAW HANGMAN ------------------------------------------------------------>
 	# Draws the hangman as the user makes incorrect guesses - body parts are colored
 	def draw_hangman
-		if @wrong_answers == 0
+		if @wrong_answers == 0 && @guess == nil
+		puts """
+		Let's play Hangman!!!
+		Can you guess our Ada Developers Academy class related term?
+
+		|     _________
+		|     |/      |
+		|     |      
+		|     |      
+		|     |      
+		|     |      
+		|     |
+		| ____|___ 
+
+		word: #{@blank_array.join}
+		"""
+
+		elsif @wrong_answers == 0
 		puts """
 		|     _________
 		|     |/      |
