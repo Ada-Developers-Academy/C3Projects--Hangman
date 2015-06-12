@@ -57,18 +57,24 @@ class Hangman
 
 	def win?
 		if @answer_letters.join == @blank_array.join
-			puts "You win!!!"
+			puts "You WIN!!!"
 			exit
 		end
 	end
 
 # DRAW HANGMAN ------------------------------------------------------------>
 	# Draws the hangman as the user makes incorrect guesses - body parts are colored
+
+	def show_guess
+		puts "word: #{@blank_array.join}"
+		puts "letters guessed: #{@guess_array.join(" ").upcase}"
+	end
+
 	def draw_hangman
 		if @wrong_answers == 0 && @guess == nil
-		puts """
+		puts "
 		Let's play Hangman!!!
-		Can you guess our Ada Developers Academy class related term?
+		Guess the Ada Developers Academy class related term.
 
 		|     _________
 		|     |/      |
@@ -78,12 +84,11 @@ class Hangman
 		|     |      
 		|     |
 		| ____|___ 
-
-		word: #{@blank_array.join}
-		"""
+		"
+		show_guess
 
 		elsif @wrong_answers == 0
-		puts """
+		puts "
 		|     _________
 		|     |/      |
 		|     |      
@@ -92,13 +97,11 @@ class Hangman
 		|     |      
 		|     |
 		| ____|___ 
-
-		word: #{@blank_array.join}
-		letters guessed: #{@guess_array.join(" ")}
-		"""
+		"
+		show_guess
 
 		elsif @wrong_answers == 1
-		puts """
+		puts "
 		|     __________
 		|     |/       |
 		|     |	      \e[1;34m(_)\e[0m
@@ -107,13 +110,11 @@ class Hangman
 		|     |      
 		|     |
 		| ____|___ 
-
-		word: #{@blank_array.join}
-		letters guessed: #{@guess_array.join(" ")}
-		"""
+		"
+		show_guess
 
 		elsif @wrong_answers == 2
-		puts """
+		puts "
 		|     __________
 		|     |/       |
 		|     |	      \e[1;34m(_)\e[0m
@@ -122,13 +123,11 @@ class Hangman
 		|     |      
 		|     |
 		| ____|___ 
-
-		word: #{@blank_array.join}
-	  letters guessed: #{@guess_array.join(" ")}
-		"""
+		"
+		show_guess
 
 		elsif @wrong_answers == 3
-		puts """
+		puts "
 		|     __________
 		|     |/       |
 		|     |	      \e[1;34m(_)\e[0m
@@ -137,13 +136,11 @@ class Hangman
 		|     |      
 		|     |
 		| ____|___ 
-
-		word: #{@blank_array.join}
-	  letters guessed: #{@guess_array.join(" ")}
-		"""
+		"
+		show_guess
 
 		elsif @wrong_answers == 4
-		puts """
+		puts "
 		|     __________
 		|     |/       |
 		|     |	      \e[1;34m(_)\e[0m
@@ -152,13 +149,11 @@ class Hangman
 		|     |      
 		|     |
 		| ____|___ 
-
-		word: #{@blank_array.join}
-	  letters guessed: #{@guess_array.join(" ")}
-		"""
+		"
+		show_guess
 
 		elsif @wrong_answers == 5
-		puts """
+		puts "
 		|     __________
 		|     |/       |
 		|     |	      \e[1;34m(_)\e[0m
@@ -167,13 +162,11 @@ class Hangman
 		|     |       \e[0;32m/\e[0m
 		|     |
 		| ____|___ 
-
-		word: #{@blank_array.join}
-	  letters guessed: #{@guess_array.join(" ")}
-		"""
+		"
+		show_guess
 
 		elsif @wrong_answers == 6
-		puts """
+		puts "
 		|     __________
 		|     |/       |
 		|     |	      \e[1;34m(_)\e[0m
@@ -184,9 +177,10 @@ class Hangman
 		|     |
 		| ____|___ 
 
-		You lose!!! The word was #{@word}.
-	  letters guessed: #{@guess_array.join(" ")}
-		"""
+		You LOSE!!!
+		"
+		show_guess
+
 		exit
 		end
 	end
