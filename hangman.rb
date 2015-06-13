@@ -26,6 +26,7 @@ class Hangman
 		@guess = gets.chomp.downcase
 		@guess_array.push(@guess)
 		if @guess == "quit"
+			puts "The answer was #{@word}."
 			exit
 		end
 		guess_in_answer
