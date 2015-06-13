@@ -6,12 +6,12 @@ WORDS = %w(method index bracket braces gem git terminal length
 
 class Hangman
   def initialize
-    @word 			= WORDS.sample
+    @word 			    = WORDS.sample
     @blank_spaces 	= "_ -" * @word.length
-    @blank_array 	= @blank_spaces.split("-")
+    @blank_array 	  = @blank_spaces.split("-")
     @answer_letters = @word.split(//)
     @wrong_answers 	= 0
-    @guess_array 	= []
+    @guess_array 	  = []
 
     draw_hangman
     get_guess
