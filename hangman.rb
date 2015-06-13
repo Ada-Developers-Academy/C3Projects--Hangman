@@ -1,6 +1,5 @@
 require 'colorize'
 
-ALPHABET = %w(a b c d e f g h i j k l m n o p q r s t u v w x y z)
 WORDS 	 = %w(method index bracket braces gem git terminal length 
 					 count push class hash comment colorize mastermind orange 
 					 online dragon seattle ada ruby sinatra)
@@ -37,7 +36,7 @@ class Hangman
 	# Check to see if the guess is part of the answer, if so, fills in the guess
 	# If guess is not in the answer, hangman is drawn
 	def guess_in_answer
-		if ALPHABET.include?(@guess)
+		if @guess.index(/[[:alpha:]]/) && !@guess.index(/\d/)
 			if @answer_letters.include?(@guess)
 				(0...@answer_letters.length).each do |index|
 					if @answer_letters[index] == @guess
@@ -175,6 +174,6 @@ class Hangman
 		end
 	end
 
-end
+end # class
 
 Hangman.new
