@@ -1,17 +1,17 @@
 require 'colorize'
 
 WORDS = %w(method index bracket braces gem git terminal length
-        count push class hash comment colorize mastermind orange
-        online dragon seattle ada ruby sinatra)
+           count push class hash comment colorize mastermind orange
+           online dragon seattle ada ruby sinatra)
 
 class Hangman
   def initialize
-    @word 			    = WORDS.sample
-    @blank_spaces 	= "_ -" * @word.length
-    @blank_array 	  = @blank_spaces.split("-")
+    @word           = WORDS.sample
+    @blank_spaces   = "_ -" * @word.length
+    @blank_array    = @blank_spaces.split("-")
     @answer_letters = @word.split(//)
-    @wrong_answers 	= 0
-    @guess_array 	  = []
+    @wrong_answers  = 0
+    @guess_array    = []
 
     draw_hangman
     get_guess
@@ -72,103 +72,103 @@ class Hangman
   def draw_hangman
     if @wrong_answers == 0 && @guess == nil
       puts "Let's play Hangman!!!
-		Guess the Ada Developers Academy class related term.
+    Guess the Ada Developers Academy class related term.
 
-		|     _________
-		|     |/      |
-		|     |      
-		|     |      
-		|     |      
-		|     |      
-		|     |
-		| ____|___ "
+    |     _________
+    |     |/      |
+    |     |      
+    |     |      
+    |     |      
+    |     |      
+    |     |
+    | ____|___ "
       show_guess
 
     elsif @wrong_answers == 0
       puts "
-		|     _________
-		|     |/      |
-		|     |      
-		|     |      
-		|     |      
-		|     |      
-		|     |
-		| ____|___ "
+    |     _________
+    |     |/      |
+    |     |      
+    |     |      
+    |     |      
+    |     |      
+    |     |
+    | ____|___ "
       show_guess
 
     elsif @wrong_answers == 1
       puts "
-		|     __________
-		|     |/       |
-		|     |	      \e[1;34m(_)\e[0m
-		|     |      
-		|     |      
-		|     |      
-		|     |
-		| ____|___ "
+    |     __________
+    |     |/       |
+    |     |       \e[1;34m(_)\e[0m
+    |     |      
+    |     |      
+    |     |      
+    |     |
+    | ____|___ "
       show_guess
 
     elsif @wrong_answers == 2
       puts "
-		|     __________
-		|     |/       |
-		|     |	      \e[1;34m(_)\e[0m
-		|     |        \e[0;31m|\e[0m
-		|     |        \e[0;31m|\e[0m
-		|     |      
-		|     |
-		| ____|___ "
+    |     __________
+    |     |/       |
+    |     |       \e[1;34m(_)\e[0m
+    |     |        \e[0;31m|\e[0m
+    |     |        \e[0;31m|\e[0m
+    |     |      
+    |     |
+    | ____|___ "
       show_guess
 
     elsif @wrong_answers == 3
       puts "
-		|     __________
-		|     |/       |
-		|     |	      \e[1;34m(_)\e[0m
-		|     |       \e[0;33m\\\e[0m\e[0;31m|\e[0m
-		|     |        \e[0;31m|\e[0m
-		|     |      
-		|     |
-		| ____|___ "
+    |     __________
+    |     |/       |
+    |     |       \e[1;34m(_)\e[0m
+    |     |       \e[0;33m\\\e[0m\e[0;31m|\e[0m
+    |     |        \e[0;31m|\e[0m
+    |     |      
+    |     |
+    | ____|___ "
       show_guess
 
     elsif @wrong_answers == 4
       puts "
-		|     __________
-		|     |/       |
-		|     |	      \e[1;34m(_)\e[0m
-		|     |       \e[0;33m\\\e[0m\e[0;31m|\e[0m\e[0;33m/\e[0m
-		|     |        \e[0;31m|\e[0m
-		|     |      
-		|     |
-		| ____|___ "
+    |     __________
+    |     |/       |
+    |     |       \e[1;34m(_)\e[0m
+    |     |       \e[0;33m\\\e[0m\e[0;31m|\e[0m\e[0;33m/\e[0m
+    |     |        \e[0;31m|\e[0m
+    |     |      
+    |     |
+    | ____|___ "
       show_guess
 
     elsif @wrong_answers == 5
       puts "
-		|     __________
-		|     |/       |
-		|     |	      \e[1;34m(_)\e[0m
-		|     |       \e[0;33m\\\e[0m\e[0;31m|\e[0m\e[0;33m/\e[0m
-		|     |        \e[0;31m|\e[0m
-		|     |       \e[0;32m/\e[0m
-		|     |
-		| ____|___ "
+    |     __________
+    |     |/       |
+    |     |       \e[1;34m(_)\e[0m
+    |     |       \e[0;33m\\\e[0m\e[0;31m|\e[0m\e[0;33m/\e[0m
+    |     |        \e[0;31m|\e[0m
+    |     |       \e[0;32m/\e[0m
+    |     |
+    | ____|___ "
       show_guess
 
     elsif @wrong_answers == 6
       puts "
-		|     __________
-		|     |/       |
-		|     |	      \e[1;34m(_)\e[0m
-		|     |       \e[0;33m\\\e[0m\e[0;31m|\e[0m\e[0;33m/\e[0m
-		|     |        \e[0;31m|\e[0m
-		|     |       \e[0;32m/\e[0m \e[0;32m\\\e[0m
-		|     |      
-		|     |
-		| ____|___ 
+    |     __________
+    |     |/       |
+    |     |       \e[1;34m(_)\e[0m
+    |     |       \e[0;33m\\\e[0m\e[0;31m|\e[0m\e[0;33m/\e[0m
+    |     |        \e[0;31m|\e[0m
+    |     |       \e[0;32m/\e[0m \e[0;32m\\\e[0m
+    |     |      
+    |     |
+    | ____|___ 
 
-		You LOSE!!! The word was #{@word}."
+    You LOSE!!! The word was #{@word}."
       show_guess
 
       exit
