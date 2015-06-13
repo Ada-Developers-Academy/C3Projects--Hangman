@@ -64,7 +64,6 @@ class Hangman
 
 # DRAW HANGMAN ------------------------------------------------------------>
 	# Draws the hangman as the user makes incorrect guesses - body parts are colored
-
 	def show_guess
 		puts "word: #{@blank_array.join}"
 		puts "letters guessed: #{@guess_array.join(" ").upcase}"
@@ -72,8 +71,7 @@ class Hangman
 
 	def draw_hangman
 		if @wrong_answers == 0 && @guess == nil
-		puts "
-		Let's play Hangman!!!
+		puts "Let's play Hangman!!!
 		Guess the Ada Developers Academy class related term.
 
 		|     _________
@@ -83,8 +81,7 @@ class Hangman
 		|     |      
 		|     |      
 		|     |
-		| ____|___ 
-		"
+		| ____|___ "
 		show_guess
 
 		elsif @wrong_answers == 0
@@ -96,8 +93,7 @@ class Hangman
 		|     |      
 		|     |      
 		|     |
-		| ____|___ 
-		"
+		| ____|___ "
 		show_guess
 
 		elsif @wrong_answers == 1
@@ -109,8 +105,7 @@ class Hangman
 		|     |      
 		|     |      
 		|     |
-		| ____|___ 
-		"
+		| ____|___ "
 		show_guess
 
 		elsif @wrong_answers == 2
@@ -122,8 +117,7 @@ class Hangman
 		|     |        \e[0;31m|\e[0m
 		|     |      
 		|     |
-		| ____|___ 
-		"
+		| ____|___ "
 		show_guess
 
 		elsif @wrong_answers == 3
@@ -135,8 +129,7 @@ class Hangman
 		|     |        \e[0;31m|\e[0m
 		|     |      
 		|     |
-		| ____|___ 
-		"
+		| ____|___ "
 		show_guess
 
 		elsif @wrong_answers == 4
@@ -148,8 +141,7 @@ class Hangman
 		|     |        \e[0;31m|\e[0m
 		|     |      
 		|     |
-		| ____|___ 
-		"
+		| ____|___ "
 		show_guess
 
 		elsif @wrong_answers == 5
@@ -161,8 +153,7 @@ class Hangman
 		|     |        \e[0;31m|\e[0m
 		|     |       \e[0;32m/\e[0m
 		|     |
-		| ____|___ 
-		"
+		| ____|___ "
 		show_guess
 
 		elsif @wrong_answers == 6
@@ -177,8 +168,7 @@ class Hangman
 		|     |
 		| ____|___ 
 
-		You LOSE!!!
-		"
+		You LOSE!!!"
 		show_guess
 
 		exit
