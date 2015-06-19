@@ -139,56 +139,71 @@ class Hangman
     # The user input is an array (since we're comparing it to an answer array)
     @user_input = []
     # Assumes that the user is wrong unless they meet certain conditions below
-    correct_guess = false
-    # The wrong_answer variable helps us keep track of wrong answer attempts and change the ASCII art
-    wrong_answer = 0
+    @correct_guess = false
+    # The @wrong_answer variable helps us keep track of wrong answer attempts and change the ASCII art
+    @wrong_answer = 0
 
     # The user can only make 5 incorrect guesses
-    while wrong_answer < 5
+    while @wrong_answer < 5
       @input = gets.chomp.downcase
-    # Quit option
-      if @input == "quit"
-        exit
-      end
-    # Detects a correct answer
-      @answer_array.each_index do |letter|
-        if  @input == @answer_array[letter]
-            @blank_array[letter] = @input + " "
-            puts "Good for you!".colorize(:light_blue)
-            puts  @blank_array.join
-            correct_guess = true
-            # Check for winner (no underscores left in the blank array)
-            if  @blank_array.join.include?("_") == false
-                puts "YOU WON, CONGRATULATIONS!".on_blue.underline
-                puts @hanger_list[6]
-              exit
-            end
-          # Breaks the conditional so that correct_guess isn't reset to false
-          break
-        else
-          correct_guess = false
-        end
-      end
+
+      # End when you type 'quit'
+      quit_option
+
+      # Detects a correct answer
+      find_correct
 
       # Detects a wrong answer
-      if correct_guess == false
-        puts "Wrong!".colorize(:red)
-        puts @hanger_list[wrong_answer]
-        # Increments wrong answer by 1
-        wrong_answer += 1
+      find_wrong
 
-        # Checks to see if guesses are all up
-        if wrong_answer == 5
-          puts "Unfortunately you lost!".on_red.underline
-          puts @hanger_list[5]
-        end
+    end # while
 
-      end
+  end # Method
 
+  def quit_option
+    if @input == "quit"
+      exit
     end
   end
 
-end
+  def find_correct
+    @answer_array.each_index do |letter|
+      if  @input == @answer_array[letter]
+          @blank_array[letter] = @input + " "
+          puts "Good for you!".colorize(:light_blue)
+          puts  @blank_array.join
+          @correct_guess = true
+          # Check for winner (no underscores left in the blank array)
+          if  @blank_array.join.include?("_") == false
+              puts "YOU WON, CONGRATULATIONS!".on_blue.underline
+              puts @hanger_list[6]
+            exit
+          end
+        # Breaks the conditional so that @correct_guess isn't reset to false
+        break
+      else
+        @correct_guess = false
+      end # end
+    end # end Detect a correct answer - do
+  end
+
+  def find_wrong
+    if @correct_guess == false
+      puts "Wrong!".colorize(:red)
+      puts @hanger_list[@wrong_answer]
+      # Increments wrong answer by 1
+      @wrong_answer += 1
+
+      # Checks to see if guesses are all up
+      if @wrong_answer == 5
+        puts "Unfortunately you lost!".on_red.underline
+        puts @hanger_list[5]
+      end
+
+    end # Wrong answer detect - conditional
+  end
+
+end # Class
 
 #Runs a new game of Hangman automatically
 Hangman.new
