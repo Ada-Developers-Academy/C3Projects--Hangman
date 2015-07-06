@@ -1,5 +1,7 @@
 require "colorize"
-class Hangman #
+class Hangman
+  POSSIBLE_ANSWERS = ["potato", "broccoli", "animal", "hotdog",
+  "elephant", "cat", "taco", "whale", "walrus", "vulture"]
 
   def initialize
     # hangman board:
@@ -12,13 +14,13 @@ class Hangman #
     @seventh      = "    _______|___   "
     @eighth       = "   |           |  "
     @ninth        = "                  "
-    @tenth        = "  H A N G M A N  " # change based on how many letters, etc
+    @answer_blanks         = "  H A N G M A N  " # change based on how many letters, etc
 
     start
   end
 
   def display_board
-    @hangman = [@first, @second, @third, @fourth, @fifth, @sixth, @seventh, @eighth, @ninth, @tenth]
+    @hangman = [@first, @second, @third, @fourth, @fifth, @sixth, @seventh, @eighth, @ninth, @answer_blanks ]
     @hangman.each do |line|
       puts line
     end
@@ -26,16 +28,9 @@ class Hangman #
   end
 
   def set_answer
-    possible_answers = ["potato", "broccoli", "animal", "hotdog",
-    "elephant", "cat", "taco", "whale", "walrus", "vulture"]
-    # select random word from possible anaswer
-    which_random_index = rand(0...possible_answers.length)
-    @answer = possible_answers[which_random_index]
-
+    @answer = POSSIBLE_ANSWERS.sample
     # updates hangman word display with dashes equal to the length of the word
-    @tenth  = " _" * @answer.length #18 characters
-
-  end
+    @answer_blanks  = " _" * @answer.length #18 characters
 
   def start
     puts "Let's play hangman"
@@ -64,7 +59,7 @@ class Hangman #
       exit
     end
 
-    until (input >= "a") && (input <= "z") && (input.length == 1) # while/until they are true
+    unless ("a".."z").include?(input) && (input.length == 0)
       puts "Please enter a valid letter."
       return get_guess
     end
@@ -122,7 +117,7 @@ class Hangman #
   end
 
   def good_guess(answer_letter, display_letter)
-    @tenth[display_letter] = @answer[answer_letter]
+    @answer_blanks [display_letter] = @answer[answer_letter]
 
     if @good_count == @answer.length #
       win
