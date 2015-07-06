@@ -12,7 +12,7 @@ class Hangman #
     @seventh      = "    _______|___   "
     @eighth       = "   |           |  "
     @ninth        = "                  "
-    @tenth        = "  H A N G M A N   " # change based on how many letters, etc
+    @tenth        = "  H A N G M A N  " # change based on how many letters, etc
 
     start
   end
